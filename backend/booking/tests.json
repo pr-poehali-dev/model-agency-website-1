@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Create booking",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "modelId": 1,
+        "clientName": "Иван Петров",
+        "clientEmail": "ivan@example.com",
+        "clientPhone": "+7 999 123-45-67",
+        "bookingDate": "2025-11-01",
+        "hours": 4,
+        "notes": "Фотосессия для каталога"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "bookingId": "number"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
