@@ -43,6 +43,11 @@ interface ModelForm {
   isAvailable: boolean;
 }
 
+interface UploadState {
+  uploading: boolean;
+  preview: string;
+}
+
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [adminToken, setAdminToken] = useState('');
@@ -62,12 +67,17 @@ const Admin = () => {
     description: '',
     isAvailable: true
   });
+  const [uploadState, setUploadState] = useState<UploadState>({
+    uploading: false,
+    preview: ''
+  });
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const AUTH_API = 'https://functions.poehali.dev/7b10efe2-1f83-4062-91e1-fd9eaca39211';
   const MODELS_API = 'https://functions.poehali.dev/fda65910-2f69-4b23-be36-4259b965eca3';
   const ADMIN_MODELS_API = 'https://functions.poehali.dev/3caaab7f-6a87-413e-9e31-3019d5ce61e1';
+  const UPLOAD_API = 'https://functions.poehali.dev/2fad90a8-00bf-4d6d-95a8-bcabc08185e2';
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
@@ -136,6 +146,7 @@ const Admin = () => {
       description: '',
       isAvailable: true
     });
+    setUploadState({ uploading: false, preview: '' });
     setIsDialogOpen(true);
   };
 
@@ -153,6 +164,7 @@ const Admin = () => {
       description: model.description,
       isAvailable: model.isAvailable
     });
+    setUploadState({ uploading: false, preview: model.imageUrl });
     setIsDialogOpen(true);
   };
 
@@ -204,6 +216,43 @@ const Admin = () => {
       }
     } catch (error) {
       toast({ title: 'Ошибка', description: 'Не удалось удалить модель', variant: 'destructive' });
+    }
+  };
+
+  const handleImageUpload = async (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      toast({ title: 'Ошибка', description: 'Пожалуйста, выберите изображение', variant: 'destructive' });
+      return;
+    }
+
+    setUploadState({ uploading: true, preview: '' });
+
+    try {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result as string;
+        setUploadState({ uploading: true, preview: base64String });
+
+        const response = await fetch(UPLOAD_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: base64String })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          setModelForm({ ...modelForm, imageUrl: data.url });
+          toast({ title: 'Успех!', description: 'Фото загружено' });
+        } else {
+          toast({ title: 'Ошибка', description: data.error, variant: 'destructive' });
+        }
+        setUploadState({ uploading: false, preview: base64String });
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      toast({ title: 'Ошибка', description: 'Не удалось загрузить фото', variant: 'destructive' });
+      setUploadState({ uploading: false, preview: '' });
     }
   };
 
@@ -373,12 +422,57 @@ const Admin = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="imageUrl">URL изображения *</Label>
+              <Label>Фото модели *</Label>
+              <div className="border-2 border-dashed border-border rounded-lg p-4 text-center">
+                {uploadState.preview || modelForm.imageUrl ? (
+                  <div className="space-y-3">
+                    <img 
+                      src={uploadState.preview || modelForm.imageUrl} 
+                      alt="Preview" 
+                      className="mx-auto h-48 w-auto object-cover rounded"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => document.getElementById('file-upload')?.click()}
+                      disabled={uploadState.uploading}
+                    >
+                      <Icon name="Upload" size={16} className="mr-2" />
+                      Изменить фото
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <Icon name="ImagePlus" size={48} className="mx-auto text-muted-foreground" />
+                    <div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => document.getElementById('file-upload')?.click()}
+                        disabled={uploadState.uploading}
+                      >
+                        <Icon name="Upload" size={16} className="mr-2" />
+                        {uploadState.uploading ? 'Загрузка...' : 'Выбрать фото'}
+                      </Button>
+                      <p className="text-sm text-muted-foreground mt-2">или укажите URL</p>
+                    </div>
+                  </div>
+                )}
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => e.target.files?.[0] && handleImageUpload(e.target.files[0])}
+                />
+              </div>
               <Input
                 id="imageUrl"
                 value={modelForm.imageUrl}
                 onChange={(e) => setModelForm({ ...modelForm, imageUrl: e.target.value })}
                 placeholder="https://example.com/photo.jpg"
+                className="mt-2"
               />
             </div>
             <div className="grid grid-cols-3 gap-4">
