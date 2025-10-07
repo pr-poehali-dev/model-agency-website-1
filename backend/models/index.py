@@ -38,9 +38,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     cur = conn.cursor()
     
     if category and category in ['basic', 'premium', 'luxury']:
-        query = f"SELECT id, name, category, image_url, height, measurements, experience_years, price_per_hour, description, is_available FROM models WHERE category = '{category}' AND is_available = true ORDER BY price_per_hour DESC"
+        query = f"SELECT id, name, category, image_url, height, measurements, experience_years, price_per_hour, description, is_available FROM t_p64992478_model_agency_website.models WHERE category = '{category}' AND is_available = true ORDER BY price_per_hour DESC"
     else:
-        query = "SELECT id, name, category, image_url, height, measurements, experience_years, price_per_hour, description, is_available FROM models WHERE is_available = true ORDER BY price_per_hour DESC"
+        query = "SELECT id, name, category, image_url, height, measurements, experience_years, price_per_hour, description, is_available FROM t_p64992478_model_agency_website.models WHERE is_available = true ORDER BY price_per_hour DESC"
     
     cur.execute(query)
     rows = cur.fetchall()
