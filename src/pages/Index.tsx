@@ -233,16 +233,16 @@ const Index = () => {
                   </div>
                   <CardHeader>
                     <CardTitle className="text-2xl font-playfair">{model.name}</CardTitle>
-                    <CardDescription className="space-y-1">
-                      <div className="flex items-center gap-2 text-sm">
+                    <div className="space-y-1 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2">
                         <Icon name="Ruler" size={16} />
                         <span>{model.height} см • {model.measurements}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm">
+                      <div className="flex items-center gap-2">
                         <Icon name="Award" size={16} />
                         <span>{model.experienceYears} {model.experienceYears === 1 ? 'год' : 'лет'} опыта</span>
                       </div>
-                    </CardDescription>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground line-clamp-2">{model.description}</p>
