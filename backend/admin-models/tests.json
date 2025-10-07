@@ -1,0 +1,27 @@
+{
+  "tests": [
+    {
+      "name": "Create model",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "X-Admin-Token": "admin_1_admin"
+      },
+      "body": {
+        "name": "Тестовая модель",
+        "category": "basic",
+        "imageUrl": "https://example.com/test.jpg",
+        "height": 175,
+        "measurements": "85-60-90",
+        "experienceYears": 2,
+        "pricePerHour": 5000,
+        "description": "Тестовое описание"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

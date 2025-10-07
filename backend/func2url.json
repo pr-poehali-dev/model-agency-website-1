@@ -1,4 +1,6 @@
 {
+  "admin-models": "https://functions.poehali.dev/3caaab7f-6a87-413e-9e31-3019d5ce61e1",
+  "admin-auth": "https://functions.poehali.dev/7b10efe2-1f83-4062-91e1-fd9eaca39211",
   "models": "https://functions.poehali.dev/fda65910-2f69-4b23-be36-4259b965eca3",
   "booking": "https://functions.poehali.dev/5d14d914-ad90-4ba9-8289-b8a098e43c81"
 }

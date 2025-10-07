@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface Model {
   id: number;
@@ -49,6 +50,7 @@ const Index = () => {
   });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const MODELS_API = 'https://functions.poehali.dev/fda65910-2f69-4b23-be36-4259b965eca3';
   const BOOKING_API = 'https://functions.poehali.dev/5d14d914-ad90-4ba9-8289-b8a098e43c81';
@@ -162,6 +164,10 @@ const Index = () => {
             <a href="#catalog" className="text-sm font-lato hover:text-gold transition-colors">Каталог</a>
             <a href="#services" className="text-sm font-lato hover:text-gold transition-colors">Услуги</a>
             <a href="#contact" className="text-sm font-lato hover:text-gold transition-colors">Контакты</a>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/admin')}>
+              <Icon name="Lock" size={16} className="mr-2" />
+              Админ
+            </Button>
           </nav>
           <Button variant="outline" className="md:hidden">
             <Icon name="Menu" size={20} />
