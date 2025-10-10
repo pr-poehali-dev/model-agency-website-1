@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,46 +6,46 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    --background: 210 30% 8%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card: 214 32% 12%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 214 32% 12%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 0 0% 0%;
+    --primary: 194 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 214 32% 16%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 214 32% 16%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 43 74% 66%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 194 100% 50%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 91%;
-    --input: 0 0% 91%;
-    --ring: 43 74% 66%;
+    --border: 214 32% 20%;
+    --input: 214 32% 20%;
+    --ring: 194 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 15%;
-    --sidebar-primary: 0 0% 0%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 0 0% 91%;
-    --sidebar-ring: 43 74% 66%;
+    --sidebar-background: 214 32% 12%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 194 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 214 32% 16%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 214 32% 20%;
+    --sidebar-ring: 194 100% 50%;
 
-    --gold: 43 74% 66%;
+    --duck-yellow: 45 100% 60%;
   }
 
   .dark {
@@ -94,7 +94,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Lato", sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
   h1,
@@ -103,6 +103,6 @@
   h4,
   h5,
   h6 {
-    font-family: "Playfair Display", serif;
+    font-family: "Inter", sans-serif;
   }
 }

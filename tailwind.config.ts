@@ -62,11 +62,11 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				gold: 'hsl(var(--gold))'
+				gold: 'hsl(var(--gold))',
+				'duck-yellow': 'hsl(var(--duck-yellow))'
 			},
 			fontFamily: {
-				'playfair': ['Playfair Display', 'serif'],
-				'lato': ['Lato', 'sans-serif']
+				'inter': ['Inter', 'sans-serif']
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
